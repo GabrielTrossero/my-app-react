@@ -5,20 +5,20 @@ import './index.css';
 
 /*Renderiza un simple botón*/
 class Square extends React.Component {
-  constructor(props){
+  /*constructor(props){
     super(props);
     this.state = {
       value: null,
     };
-  }
+  }*/
 
   render() {
     return (
       <button 
         className="square" 
-        onClick={() => this.setState({value: 'X'})}
+        onClick={() => this.props.onClick()}
       >
-        {this.state.value}
+        {this.props.value}
       </button>
     );
   }
@@ -27,9 +27,38 @@ class Square extends React.Component {
 
 /*Renderiza 9 cuadros*/
 class Board extends React.Component {
-  renderSquare(i) {
-    return <Square value={i}/>;
+  constructor(props){
+    super(props);
+    this.state = {
+      squares: Array(9).fill(null),
+    };
   }
+
+  handleClick(i){
+    /*
+      Crear una copia nos permite mantener la inmutabilidad. Esto tiene ventajas como:
+      - Permite mantener un historial de cambios
+      - Detectar cambios
+      - Mantener componentes puros en React
+    */
+    const squares = this.state.squares.slice(); //crea una copia
+    squares[i] = 'X';
+    this.setState({squares: squares});
+  }
+
+  renderSquare(i) {
+    return (
+      <Square 
+        value = {this.state.squares[i]}
+        onClick = {() => this.handleClick(i)}
+      />
+    );
+  }
+
+  /*
+    En React es una convención usar los nombres on[Evento] para props que 
+    representan eventos y handle[Evento] para los métodos que manejan los eventos.
+  */
 
   render() {
     const status = 'Next player: X';
