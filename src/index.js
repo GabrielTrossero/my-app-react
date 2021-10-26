@@ -2,19 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+/*Renderiza un simple botón*/
 class Square extends React.Component {
   render() {
     return (
       <button className="square">
-        {/* TODO */}
+        {this.props.value}
       </button>
     );
   }
 }
 
+/*Renderiza 9 cuadros*/
 class Board extends React.Component {
   renderSquare(i) {
-    return <Square />;
+    return <Square value={i}/>;
   }
 
   render() {
@@ -43,6 +45,7 @@ class Board extends React.Component {
   }
 }
 
+/*Renderiza un table con valores de posición por defecto*/
 class Game extends React.Component {
   render() {
     return (
