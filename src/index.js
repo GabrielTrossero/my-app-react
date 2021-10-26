@@ -2,16 +2,28 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+
 /*Renderiza un simple botón*/
 class Square extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      value: null,
+    };
+  }
+
   render() {
     return (
-      <button className="square" onClick={function() {console.log('click')}}>
-        {this.props.value}
+      <button 
+        className="square" 
+        onClick={() => this.setState({value: 'X'})}
+      >
+        {this.state.value}
       </button>
     );
   }
 }
+
 
 /*Renderiza 9 cuadros*/
 class Board extends React.Component {
@@ -44,6 +56,7 @@ class Board extends React.Component {
     );
   }
 }
+
 
 /*Renderiza un table con valores de posición por defecto*/
 class Game extends React.Component {
